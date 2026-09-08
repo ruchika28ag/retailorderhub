@@ -1,63 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>RetailOrderHub</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="container">
-    <h1>RetailOrderHub</h1>
-    <p class="tagline">E-Commerce Order Management — System Design Training</p>
-    <nav>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>RetailOrderHub</h1>
+      <p class="tagline">
+        E-Commerce Order Management — System Design Training
+      </p>
+      <nav>
         <a th:href="@{/}">Catalog</a> | <a th:href="@{/orders}">Orders</a>
-    </nav>
+      </nav>
 
-    <div th:if="${orderSuccess != null}">
-        <p th:if="${orderSuccess}" class="message success">Order placed successfully.</p>
-        <p th:unless="${orderSuccess}" class="message error">
-            Order failed — check the customer ID, item names (must match the catalog exactly), and payment method.
+      <div th:if="${orderSuccess != null}">
+        <p th:if="${orderSuccess}" class="message success">
+          Order placed successfully.
         </p>
-    </div>
+        <p th:unless="${orderSuccess}" class="message error">
+          Order failed — check the customer ID, item names (must match the
+          catalog exactly), and payment method.
+        </p>
+      </div>
 
-    <h2>Product Catalog</h2>
-    <table>
+      <h2>Product Catalog</h2>
+      <table>
         <thead>
-        <tr><th>Name</th><th>Price</th><th>In Stock</th></tr>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>In Stock</th>
+          </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${products}">
+          <tr th:each="product : ${products}">
             <td th:text="${product.name}">Name</td>
-            <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">Price</td>
+            <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">
+              Price
+            </td>
             <td th:text="${product.quantity}">Qty</td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
 
-    <h2>Place an Order</h2>
-    <form th:action="@{/orders}" method="post">
-        <label>Customer ID
-            <input type="text" name="customerId" placeholder="CUST-001" required>
+      <h2>Place an Order</h2>
+      <form th:action="@{/orders}" method="post">
+        <label
+          >Customer ID
+          <input
+            type="text"
+            name="customerId"
+            placeholder="CUST-001"
+            required
+          />
         </label>
 
-        <label>Item Names (comma-separated, must match catalog names exactly)
-            <input type="text" name="itemNames" placeholder="Laptop, Mouse" required>
+        <label
+          >Item Names (comma-separated, must match catalog names exactly)
+          <input
+            type="text"
+            name="itemNames"
+            placeholder="Laptop, Mouse"
+            required
+          />
         </label>
 
-        <label>Payment Method
-            <select name="paymentMethod">
-                <option value="CREDIT_CARD">Credit Card</option>
-                <option value="PAYPAL">PayPal</option>
-                <option value="GIFT_CARD">Gift Card</option>
-            </select>
+        <label
+          >Payment Method
+          <select name="paymentMethod">
+            <option value="CREDIT_CARD">Credit Card</option>
+            <option value="PAYPAL">PayPal</option>
+            <option value="GIFT_CARD">Gift Card</option>
+            <option value="APPLE_PAY">Apple Pay</option>
+          </select>
         </label>
 
-        <label>Amount (USD)
-            <input type="number" step="0.01" min="0" name="amount" placeholder="999.99" required>
+        <label
+          >Amount (USD)
+          <input
+            type="number"
+            step="0.01"
+            min="0"
+            name="amount"
+            placeholder="999.99"
+            required
+          />
         </label>
 
         <button type="submit">Place Order</button>
-    </form>
-</div>
-</body>
+      </form>
+    </div>
+  </body>
 </html>
